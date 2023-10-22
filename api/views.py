@@ -60,9 +60,9 @@ def allImages(request):
         return Response(data, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
-def imagesByCategory(request, category_id):
+def oneImage(request, image_id):
     try:
-        images = Image.objects.filter(category_id=category_id)
+        images = Image.objects.get(id=image_id)
         serializer = ImageSerializer(images, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Image.DoesNotExist:
@@ -70,53 +70,26 @@ def imagesByCategory(request, category_id):
         return Response(data, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
-def imagesByMedium():
+def byCategory(request, category_id):
+    try:
+        images = Image.objects.filter(category_id=category_id)
+        serializer = ImageSerializer(images, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Image.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+def byCategorySubCategory(request, category_id, subCategory_id):
     pass
 
 @api_view(['GET'])
-def imagesByMediumCategory():
+def byCategorySubCategoryMedium(request, category_id, subCategory_id, medium):
     pass
 
-@api_view(['GET'])
-def oneImage():
-    pass
 
-@api_view(['GET'])
-def oneCategory():
-    pass
 
-@api_view(['GET'])
-def oneMedium():
-    pass
 
-@api_view(['GET'])
-def randomImage():
-    pass
-
-@api_view(['GET'])
-def randomImageByCategory():
-    pass
-
-@api_view(['GET'])
-def randomImageByMedium():
-    pass
-
-@api_view(['GET'])
-def randomImageByCategoryMedium():
-    pass
-
-@api_view(['GET'])
-def randomNumImage():
-    pass
-
-@api_view(['GET'])
-def randomNumImageByCategory():
-    pass
-
-@api_view(['GET'])
-def randomNumImageByMedium():
-    pass
-
-@api_view(['GET'])
-def radnomNumImageByCategoryMedium():
-    pass
+# category, category/sub, category/medium
+# category/sub, category/sub/medium
+# medium, medium/category, medium/category/sub
