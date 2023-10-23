@@ -9,7 +9,7 @@ urlpatterns = [
     path('subCategories/', views.allSubCategories),
     path('mediums/', views.allMediums),
     path('images/', views.allImages),
-    path('images/<int:category_id>/', views.imagesByCategory),
+    path('images/<int:image_id>/view/', views.oneImage),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

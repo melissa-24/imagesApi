@@ -19,12 +19,14 @@ class Medium(models.Model):
 class UploadImage(models.Model):
     fileName = models.CharField(max_length=255)
     image = models.ImageField(upload_to="images")
+    extension = models.CharField(max_length=10)
     def __str__(self):
         return self.fileName
 
 class ImageLink(models.Model):
     fileName = models.CharField(max_length=255)
     image = models.CharField(max_length=255)
+    extension = models.CharField(max_length=10)
     def __str__(self):
         return self.fileName
 

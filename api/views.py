@@ -52,8 +52,9 @@ def allMediums(request):
 @api_view(['GET'])
 def allImages(request):
     try:
-        images = Image.objects.all().values()
+        images = Image.objects.all()
         serializer = ImageSerializer(images, many=True)
+        print('images', images, 'serializer.data', serializer.data)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Image.DoesNotExist:
         data = []

@@ -27,6 +27,26 @@ class ImageLinkSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ImageSerializer(serializers.ModelSerializer):
+    
+    category_name = serializers.CharField(source='category.category', read_only=True)
+    subCategory_name = serializers.CharField(source='subCategory.subCategory', read_only=True)
+    medium_name = serializers.CharField(source='medium.medium', read_only=True)
+    fileName_name = serializers.SerializerMethodField()
+    linkName_name = serializers.SerializerMethodField()
+
+    def get_fileName_name(self, obj):
+        print('inside getfilename')
+        if obj.fileName:
+            print('print me more data from inside serializer',obj.fileName.fileName, obj.fileName.extension)
+            return f"{obj.fileName.fileName}.{obj.fileName.extension}"
+        return None
+    
+    def get_linkName_name(self, obj):
+        print('inside getlinkname')
+        if obj.linkName:
+            return f"{obj.linkName.fileName}.{obj.linkName.extension}"
+        return None
+    
     class Meta:
         model = Image
         fields = '__all__'
