@@ -63,8 +63,8 @@ def allImages(request):
 @api_view(['GET'])
 def oneImage(request, image_id):
     try:
-        images = Image.objects.get(id=image_id)
-        serializer = ImageSerializer(images, many=True)
+        image = Image.objects.get(id=image_id)
+        serializer = ImageSerializer(image)
         return Response(serializer.data, status=status.HTTP_200_OK)
     except Image.DoesNotExist:
         data = []
@@ -81,16 +81,61 @@ def byCategory(request, category_id):
         return Response(data, status=status.HTTP_404_NOT_FOUND)
     
 @api_view(['GET'])
+def byMedium(request, medium_id):
+    try:
+        images = Image.objects.filter(medium_id=medium_id)
+        serializer = ImageSerializer(images, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Image.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
 def byCategorySubCategory(request, category_id, subCategory_id):
-    pass
+    try:
+        images = Image.objects.filter(category_id=category_id, subCategory_id=subCategory_id)
+        serializer = ImageSerializer(images, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Image.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['GET'])
-def byCategorySubCategoryMedium(request, category_id, subCategory_id, medium):
-    pass
+def byCategorySubCategoryMedium(request, category_id, subCategory_id, medium_id):
+    try:
+        images = Image.objects.filter(category_id=category_id, subCategory_id=subCategory_id, medium_id=medium_id)
+        serializer = ImageSerializer(images, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Image.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
 
-
-
-
-# category, category/sub, category/medium
-# category/sub, category/sub/medium
-# medium, medium/category, medium/category/sub
+@api_view(['GET'])
+def byCategoryMedium(request, category_id, medium_id):
+    try:
+        images = Image.objects.filter(category_id=category_id, medium_id=medium_id)
+        serializer = ImageSerializer(images, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Image.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+def byMediumCategory(request, medium_id, category_id):
+    try:
+        images = Image.objects.filter(medium_id=medium_id, category_id=category_id)
+        serializer = ImageSerializer(images, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Image.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)
+    
+@api_view(['GET'])
+def byMediumCategorySubCategory(request, medium_id, category_id, subCategory_id):
+    try:
+        images = Image.objects.filter(medium_id=medium_id, category_id=category_id, subCategory_id=subCategory_id)
+        serializer = ImageSerializer(images, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Image.DoesNotExist:
+        data = []
+        return Response(data, status=status.HTTP_404_NOT_FOUND)

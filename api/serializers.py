@@ -31,6 +31,8 @@ class ImageSerializer(serializers.ModelSerializer):
     category_name = serializers.CharField(source='category.category', read_only=True)
     subCategory_name = serializers.CharField(source='subCategory.subCategory', read_only=True)
     medium_name = serializers.CharField(source='medium.medium', read_only=True)
+    fileName_image = serializers.CharField(source='fileName.image', read_only=True)
+    linkName_image = serializers.CharField(source='linkName.image', read_only=True)
     fileName_name = serializers.SerializerMethodField()
     linkName_name = serializers.SerializerMethodField()
 

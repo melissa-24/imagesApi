@@ -33,7 +33,7 @@ class ImageLink(models.Model):
 class Image(models.Model):
     name = models.CharField(max_length=255)
     category = models.ForeignKey(Category, related_name='theCategory', on_delete=CASCADE, blank=True, null=True)
-    SubCategory = models.ForeignKey(SubCategory, related_name='theSubCategory', on_delete=CASCADE, blank=True, null=True)
+    subCategory = models.ForeignKey(SubCategory, related_name='theSubCategory', on_delete=CASCADE, blank=True, null=True)
     medium = models.ForeignKey(Medium, related_name='theMedium', on_delete=CASCADE, blank=True, null=True)
     fileName = models.ForeignKey(UploadImage, related_name='theFileName', on_delete=CASCADE, blank=True, null=True)
     linkName = models.ForeignKey(ImageLink, related_name='theLinkName', on_delete=CASCADE, blank=True, null=True)
