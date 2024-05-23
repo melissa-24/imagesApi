@@ -13,7 +13,7 @@ SECRET_KEY = env('KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost:8000','127.0.0.1:8000','127.0.0.1','https://beedev-images-ea063bf40ce7.herokuapp.com/']
+ALLOWED_HOSTS = ['localhost:8000','127.0.0.1:8000','127.0.0.1','https://images-api.craftsnherbs.com/']
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
