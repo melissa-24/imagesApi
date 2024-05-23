@@ -13,7 +13,7 @@ SECRET_KEY = env('KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost:8000','127.0.0.1:8000','127.0.0.1']
+ALLOWED_HOSTS = env('HOSTS')
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
