@@ -1,51 +1,27 @@
-# from pathlib import Path
-
+from pathlib import Path
 import os
 from environ import Env
-
 env = Env()
 env.read_env()
 
-# BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = env('KEY')
+SECRET_KEY = 'KEY'
 
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost:8000','127.0.0.1:8000','127.0.0.1','https://images-api.craftsnherbs.com/']
+ALLOWED_HOSTS = ['localhost:8000','127.0.0.1:8000','127.0.0.1', 'ninja-api.navyladyveteran.com']
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'http://127.0.0.1:8000',
     'http://127.0.0.1:5500',
-    'https://images-api.craftsnherbs.com/'
+    'https://ninja-api.navyladyveteran.com',
+    'http://ninja-api.navyladyveteran.com'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-X_FRAME_OPTIONS = "SAMEORIGIN"
-
-CORS_ALLOW_METHODS = [
-'DELETE',
-'GET',
-'OPTIONS',
-'PATCH',
-'POST',
-'PUT',
-]
-
-CORS_ALLOW_HEADERS = [
-'accept',
-'accept-encoding',
-'authorization',
-'content-type',
-'dnt',
-'origin',
-'user-agent',
-'x-csrftoken',
-'x-requested-with',
-]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -59,8 +35,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'drf_yasg',
-    'core.apps.CoreConfig',
-    'django_filters',
+    'api.apps.ApiConfig'
 ]
 
 MIDDLEWARE = [
@@ -74,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'imageApi.urls'
+ROOT_URLCONF = 'images.urls'
 
 TEMPLATES = [
     {
@@ -92,34 +67,25 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'imageApi.wsgi.application'
+WSGI_APPLICATION = 'images.wsgi.application'
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
     'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 100,
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' 
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'  # <-- Here
 }
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_FILTER_BACKENDS': (
-#         'django_filters.rest_framework.DjangoFilterBackend',
-#         'rest_framework.filters.SearchFilter',
-#         'rest_framework.filters.OrderingFilter',
-#     ),
-# }
 
 DATABASES = {
     'default': {
-        'ENGINE': env('DATABASE_ENGINE'),
-        'NAME': env('DATABASE_NAME'),
-        'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'OPTIONS': {'charset': 'utf8mb4'},
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR,'db.sqlite3'),
     }
 }
+
+
+# Password validation
+# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -136,9 +102,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
+# Internationalization
+# https://docs.djangoproject.com/en/4.2/topics/i18n/
+
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'US/Eastern'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -146,5 +116,12 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
+
+# This is only needed if having uploads
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
